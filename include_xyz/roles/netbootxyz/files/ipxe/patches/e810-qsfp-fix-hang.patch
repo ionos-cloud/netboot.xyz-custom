@@ -1,0 +1,18 @@
+diff --git a/src/drivers/net/ice.c b/src/drivers/net/ice.c
+index b5d66f1bb..8023a744c 100644
+--- a/src/drivers/net/ice.c
++++ b/src/drivers/net/ice.c
+@@ -956,7 +956,12 @@ static struct pci_device_id ice_nics[] = {
+ 	PCI_ROM ( 0x8086, 0x124f, "e823l-1g", "E823-L 1GbE", 0 ),
+ 	PCI_ROM ( 0x8086, 0x151d, "e823l-qsfp", "E823-L QSFP", 0 ),
+ 	PCI_ROM ( 0x8086, 0x1591, "e810c-bp", "E810-C backplane", 0 ),
+-	PCI_ROM ( 0x8086, 0x1592, "e810c-qsfp", "E810-C QSFP", 0 ),
++	/* Temporarily disable E810-C QSFP: the lice driver does not properly
++	 * initialize this NIC, causing system hangs during boot.  This NIC
++	 * works fine when handled by the UEFI NII driver instead.  See GitHub
++	 * issue #1115 for details.
++	 */
++	/* PCI_ROM ( 0x8086, 0x1592, "e810c-qsfp", "E810-C QSFP", 0 ), */
+ 	PCI_ROM ( 0x8086, 0x1593, "e810c-sfp", "E810-C SFP", 0 ),
+ 	PCI_ROM ( 0x8086, 0x1599, "e810-xxv-bp", "E810-XXV backplane", 0 ),
+ 	PCI_ROM ( 0x8086, 0x159a, "e810-xxv-qsfp", "E810-XXV QSFP", 0 ),

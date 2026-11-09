@@ -1,0 +1,24 @@
+diff --git a/src/Makefile.housekeeping b/src/Makefile.housekeeping
+index 7a965130e..6e3c300e3 100644
+--- a/src/Makefile.housekeeping
++++ b/src/Makefile.housekeeping
+@@ -1093,12 +1093,16 @@ CLEANUP		+= $(BIN)/NIC	# Doesn't match the $(BIN)/*.* pattern
+ # TGT_DRIVERS  : the driver for each element (e.g. "rtl8139 prism2_pci")
+ # TGT_ROM_NAME : the ROM name (e.g. "dfe538")
+ #
++# Default driver set for legacy targets (minimal - network drivers only)
++#
++DRIVERS_ipxe_legacy ?= $(DRIVERS_net)
++
+ TGT_ELEMENTS	= $(subst --, ,$(firstword $(subst ., ,$(notdir $@))))
+ TGT_ROM_NAME	= $(firstword $(TGT_ELEMENTS))
+ TGT_DRIVERS	= $(strip $(foreach TGT_ELEMENT,$(TGT_ELEMENTS), \
+-				    $(if $(DRIVERS_$(TGT_ELEMENT)), \
+-					 $(DRIVERS_$(TGT_ELEMENT)), \
+-					 $(firstword $(DRIVER_$(TGT_ELEMENT)) \
++				    $(if $(DRIVERS_$(subst -,_,$(TGT_ELEMENT))), \
++					 $(DRIVERS_$(subst -,_,$(TGT_ELEMENT))), \
++					 $(firstword $(DRIVER_$(subst -,_,$(TGT_ELEMENT))) \
+ 						     $(TGT_ELEMENT)))))
+ TGT_PREFIX_NAME	= $(word 2,$(subst ., ,$(notdir $@)))
+ TGT_PREFIX	= $(strip $(if $(filter rom,$(TGT_PREFIX_NAME)), \

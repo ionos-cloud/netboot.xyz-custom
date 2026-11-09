@@ -1,0 +1,12 @@
+diff --git a/src/interface/linux/linux_api.c b/src/interface/linux/linux_api.c
+index 459e39f..f38b947 100644
+--- a/src/interface/linux/linux_api.c
++++ b/src/interface/linux/linux_api.c
+@@ -38,6 +38,7 @@
+ #include <ipxe/slirp.h>
+ 
+ #ifdef HAVE_LIBSLIRP
++#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+ #include <slirp/libslirp.h>
+ #endif
+ 
